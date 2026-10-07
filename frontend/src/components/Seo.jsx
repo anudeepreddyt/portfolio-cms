@@ -1,0 +1,2 @@
+import {useEffect} from 'react';
+export default function Seo({title,description}){useEffect(()=>{document.title=title?`${title} | Portfolio`:'Portfolio';let m=document.querySelector('meta[name="description"]');if(!m){m=document.createElement('meta');m.name='description';document.head.appendChild(m)}m.content=description||'Personal portfolio powered by a custom CMS.'},[title,description]);return null}

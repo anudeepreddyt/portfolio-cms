@@ -1,0 +1,4 @@
+package com.portfolio.cms.controller;
+import com.portfolio.cms.entity.Message; import com.portfolio.cms.repository.*; import lombok.RequiredArgsConstructor; import org.springframework.web.bind.annotation.*; import java.util.*;
+@RestController @RequestMapping("/admin") @RequiredArgsConstructor
+public class AdminController { private final MessageRepository messages; private final ProjectRepository projects; private final BlogRepository blogs; private final SkillRepository skills; @GetMapping("/stats") public Map<String,Long> stats(){return Map.of("projects",projects.count(),"blogs",blogs.count(),"skills",skills.count(),"messages",messages.count());} @GetMapping("/messages") public List<Message> messages(){return messages.findAll();} @PatchMapping("/messages/{id}/read") public Message read(@PathVariable Long id){Message m=messages.findById(id).orElseThrow(()->new NoSuchElementException("Message not found"));m.setRead(true);return messages.save(m);} }

@@ -1,0 +1,4 @@
+package com.portfolio.cms.controller;
+import com.portfolio.cms.entity.Experience; import com.portfolio.cms.repository.ExperienceRepository; import jakarta.validation.Valid; import lombok.RequiredArgsConstructor; import org.springframework.web.bind.annotation.*; import java.util.*;
+@RestController @RequestMapping("/experience") @RequiredArgsConstructor
+public class ExperienceController { private final ExperienceRepository repo; @GetMapping public List<Experience> all(){return repo.findAll().stream().sorted(Comparator.comparing(x->Optional.ofNullable(x.getDisplayOrder()).orElse(0))).toList();} @PostMapping public Experience create(@Valid @RequestBody Experience x){return repo.save(x);} @PutMapping("/{id}") public Experience update(@PathVariable Long id,@Valid @RequestBody Experience x){x.setId(id);return repo.save(x);} @DeleteMapping("/{id}") public void delete(@PathVariable Long id){repo.deleteById(id);} }

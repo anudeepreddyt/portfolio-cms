@@ -1,0 +1,1 @@
+import {Navigate,useLocation} from 'react-router-dom'; import {useAuth} from '../../context/AuthContext'; export default function ProtectedAdmin({children}){const {loggedIn}=useAuth(),loc=useLocation();return loggedIn?children:<Navigate to="/admin/login" state={{from:loc.pathname}} replace/>}

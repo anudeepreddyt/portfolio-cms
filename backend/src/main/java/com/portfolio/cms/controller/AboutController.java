@@ -1,0 +1,4 @@
+package com.portfolio.cms.controller;
+import com.portfolio.cms.entity.About; import com.portfolio.cms.repository.AboutRepository; import jakarta.validation.Valid; import lombok.RequiredArgsConstructor; import org.springframework.http.*; import org.springframework.web.bind.annotation.*;
+@RestController @RequestMapping("/about") @RequiredArgsConstructor
+public class AboutController { private final AboutRepository repo; @GetMapping public About get(){return repo.findAll().stream().findFirst().orElseGet(About::new);} @PutMapping public About put(@Valid @RequestBody About in){About a=repo.findAll().stream().findFirst().orElse(new About()); a.setTitle(in.getTitle());a.setSummary(in.getSummary());a.setDescription(in.getDescription());a.setImageUrl(in.getImageUrl());a.setResumeUrl(in.getResumeUrl());return repo.save(a);} }

@@ -1,0 +1,4 @@
+package com.portfolio.cms.controller;
+import com.portfolio.cms.entity.ServiceItem; import com.portfolio.cms.repository.ServiceItemRepository; import jakarta.validation.Valid; import lombok.RequiredArgsConstructor; import org.springframework.web.bind.annotation.*; import java.util.*;
+@RestController @RequestMapping("/services") @RequiredArgsConstructor
+public class ServiceController { private final ServiceItemRepository repo; @GetMapping public List<ServiceItem> all(){return repo.findAll().stream().sorted(Comparator.comparing(x->Optional.ofNullable(x.getDisplayOrder()).orElse(0))).toList();} @PostMapping public ServiceItem create(@Valid @RequestBody ServiceItem x){return repo.save(x);} @PutMapping("/{id}") public ServiceItem update(@PathVariable Long id,@Valid @RequestBody ServiceItem x){x.setId(id);return repo.save(x);} @DeleteMapping("/{id}") public void delete(@PathVariable Long id){repo.deleteById(id);} }

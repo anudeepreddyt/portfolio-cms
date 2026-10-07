@@ -1,0 +1,2 @@
+import {useEffect,useState} from 'react'; import {api} from '../services/api';
+export function useFetch(path,initial=[]){const [data,setData]=useState(initial),[loading,setLoading]=useState(true),[error,setError]=useState('');useEffect(()=>{let on=true;setLoading(true);api.get(path).then(x=>on&&setData(x)).catch(e=>on&&setError(e.message)).finally(()=>on&&setLoading(false));return()=>{on=false}},[path]);return {data,loading,error,setData};}

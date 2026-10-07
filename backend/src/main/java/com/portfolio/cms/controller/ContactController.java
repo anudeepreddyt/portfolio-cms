@@ -1,0 +1,4 @@
+package com.portfolio.cms.controller;
+import com.portfolio.cms.dto.ContactRequest; import com.portfolio.cms.entity.Message; import com.portfolio.cms.repository.MessageRepository; import com.portfolio.cms.service.EmailService; import jakarta.validation.Valid; import lombok.RequiredArgsConstructor; import org.springframework.http.*; import org.springframework.web.bind.annotation.*; import java.util.*;
+@RestController @RequestMapping("/contact") @RequiredArgsConstructor
+public class ContactController { private final MessageRepository repo; private final EmailService email; @PostMapping public ResponseEntity<Map<String,String>> submit(@Valid @RequestBody ContactRequest r){Message m=new Message();m.setName(r.name());m.setEmail(r.email());m.setSubject(r.subject());m.setMessage(r.message());repo.save(m);email.send(r);return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("message","Thanks! Your message has been received."));} }

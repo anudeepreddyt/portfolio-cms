@@ -1,0 +1,2 @@
+import {useFetch} from '../hooks/useFetch'; import Section from '../components/Section'; import Loading from '../components/Loading'; import Seo from '../components/Seo';
+export default function About(){const {data,loading}=useFetch('/about',{});if(loading)return <Loading/>;return <><Seo title="About"/><Section title="About"><div className="prose"><h1>{data.title||'About me'}</h1><p>{data.summary}</p><p>{data.description}</p>{data.resumeUrl&&<a className="button" href={data.resumeUrl} target="_blank" rel="noreferrer">View resume</a>}</div></Section></>}

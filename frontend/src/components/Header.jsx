@@ -1,0 +1,2 @@
+import {NavLink} from 'react-router-dom';
+export default function Header(){const links=[['/','Home'],['/about','About'],['/projects','Projects'],['/skills','Skills'],['/experience','Experience'],['/blog','Blog'],['/contact','Contact']];return <header className="header"><div className="container nav"><NavLink className="brand" to="/">Portfolio</NavLink><nav>{links.map(([to,label])=><NavLink key={to} to={to} end={to==='/' }>{label}</NavLink>)}<NavLink to="/admin/login" className="admin-link">Admin</NavLink></nav></div></header>}

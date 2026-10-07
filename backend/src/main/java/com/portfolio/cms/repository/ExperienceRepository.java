@@ -1,0 +1,4 @@
+package com.portfolio.cms.repository;
+import com.portfolio.cms.entity.Experience;
+import org.springframework.data.jpa.repository.JpaRepository;
+public interface ExperienceRepository extends JpaRepository<Experience, Long> {}

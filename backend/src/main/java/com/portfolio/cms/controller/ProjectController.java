@@ -1,0 +1,4 @@
+package com.portfolio.cms.controller;
+import com.portfolio.cms.entity.Project; import com.portfolio.cms.repository.ProjectRepository; import jakarta.validation.Valid; import lombok.RequiredArgsConstructor; import org.springframework.web.bind.annotation.*; import java.util.*;
+@RestController @RequestMapping("/projects") @RequiredArgsConstructor
+public class ProjectController { private final ProjectRepository repo; @GetMapping public List<Project> all(){return repo.findAll().stream().sorted(Comparator.comparing(p->Optional.ofNullable(p.getDisplayOrder()).orElse(0))).toList();} @PostMapping public Project create(@Valid @RequestBody Project x){return repo.save(x);} @PutMapping("/{id}") public Project update(@PathVariable Long id,@Valid @RequestBody Project x){x.setId(id);return repo.save(x);} @DeleteMapping("/{id}") public void delete(@PathVariable Long id){repo.deleteById(id);} }

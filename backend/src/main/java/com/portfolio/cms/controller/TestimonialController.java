@@ -1,0 +1,4 @@
+package com.portfolio.cms.controller;
+import com.portfolio.cms.entity.Testimonial; import com.portfolio.cms.repository.TestimonialRepository; import jakarta.validation.Valid; import lombok.RequiredArgsConstructor; import org.springframework.web.bind.annotation.*; import java.util.*;
+@RestController @RequestMapping("/testimonials") @RequiredArgsConstructor
+public class TestimonialController { private final TestimonialRepository repo; @GetMapping public List<Testimonial> all(){return repo.findAll().stream().sorted(Comparator.comparing(x->Optional.ofNullable(x.getDisplayOrder()).orElse(0))).toList();} @PostMapping public Testimonial create(@Valid @RequestBody Testimonial x){return repo.save(x);} @PutMapping("/{id}") public Testimonial update(@PathVariable Long id,@Valid @RequestBody Testimonial x){x.setId(id);return repo.save(x);} @DeleteMapping("/{id}") public void delete(@PathVariable Long id){repo.deleteById(id);} }
