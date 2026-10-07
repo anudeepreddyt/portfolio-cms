@@ -74,7 +74,7 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
 
         configuration.setAllowedOrigins(
-                List.of("http://localhost:5173")
+                List.of("https://portfolio-cms-frontend3.onrender.com","http://localhost:5173")
         );
 
         configuration.setAllowedMethods(
